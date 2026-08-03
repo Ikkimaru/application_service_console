@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+      - name: Restore locked dependencies
+        run: dotnet restore ApplicationServiceConsole.slnx --locked-mode
+      - name: Verify formatting
+        run: dotnet format ApplicationServiceConsole.slnx --verify-no-changes --no-restore
+      - name: Build
+        run: dotnet build ApplicationServiceConsole.slnx --no-restore --configuration Release
+      - name: Test
+        run: dotnet test ApplicationServiceConsole.slnx --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory artifacts/test-results
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: artifacts/test-results
+          if-no-files-found: error
+          retention-days: 14

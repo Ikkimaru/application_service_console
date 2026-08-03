@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApplicationServiceConsole.Application/ApplicationServiceConsole.Application.csproj" />
+    <Project Path="src/ApplicationServiceConsole.Desktop/ApplicationServiceConsole.Desktop.csproj" />
+    <Project Path="src/ApplicationServiceConsole.Domain/ApplicationServiceConsole.Domain.csproj" />
+    <Project Path="src/ApplicationServiceConsole.Infrastructure/ApplicationServiceConsole.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ApplicationServiceConsole.Application.Tests/ApplicationServiceConsole.Application.Tests.csproj" />
+    <Project Path="tests/ApplicationServiceConsole.Architecture.Tests/ApplicationServiceConsole.Architecture.Tests.csproj" />
+    <Project Path="tests/ApplicationServiceConsole.Desktop.Tests/ApplicationServiceConsole.Desktop.Tests.csproj" />
+    <Project Path="tests/ApplicationServiceConsole.Domain.Tests/ApplicationServiceConsole.Domain.Tests.csproj" />
+    <Project Path="tests/ApplicationServiceConsole.Infrastructure.Tests/ApplicationServiceConsole.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>

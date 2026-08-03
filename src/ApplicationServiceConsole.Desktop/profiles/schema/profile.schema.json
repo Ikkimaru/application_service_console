@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://application-service-console.local/schemas/profile.schema.json",
+  "title": "Application Service Console profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "projectRootSettingKey", "discoveryProviders", "visual", "execution"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-_]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "projectRootSettingKey": { "type": "string", "minLength": 1 },
+    "discoveryProviders": { "$ref": "#/$defs/providers" },
+    "metadataProviders": { "$ref": "#/$defs/providers" },
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "theme": { "enum": ["dark", "light", "system"] },
+        "accentColor": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "icon": { "type": "string" },
+        "layout": { "enum": ["comfortable", "compact"] },
+        "logColors": { "type": "object", "additionalProperties": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "newServicePolicy": { "const": "requireEnablement" },
+        "springProfile": { "type": "string", "minLength": 1 },
+        "maximumParallelism": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "serviceOverrides": { "type": "object", "additionalProperties": { "$ref": "#/$defs/serviceOverride" } }
+  },
+  "$defs": {
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string", "minLength": 1 },
+          "options": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      }
+    },
+    "serviceOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "displayName": { "type": "string" },
+        "group": { "type": "string" },
+        "priority": { "type": "integer" },
+        "dependsOn": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    }
+  }
+}
