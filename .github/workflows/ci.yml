@@ -31,7 +31,7 @@ jobs:
         run: dotnet test ApplicationServiceConsole.slnx --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory artifacts/test-results
       - name: Upload coverage
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: artifacts/test-results
