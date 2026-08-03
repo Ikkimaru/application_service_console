@@ -8,6 +8,7 @@
 - [x] Add ignored local profile loading and machine-local settings.
 - [x] Detect Spring Boot ports and occupied-port conditions.
 - [x] Build the dark WPF discovery and diagnostics shell.
+- [x] Present discovered services in a compact responsive tile grid.
 - [x] Add synthetic discovery, validation, port, UI, and architecture tests.
 - [x] Add CI, dependency automation, changelog, goals, ADRs, security, and agent guidance.
 

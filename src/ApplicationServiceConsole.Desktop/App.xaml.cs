@@ -20,13 +20,12 @@ public partial class App : System.Windows.Application
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "ApplicationServiceConsole",
                 "Profiles");
-            string repositoryLocalProfiles = Path.Combine(Environment.CurrentDirectory, "profiles.local");
-            builder.Services.AddApplicationServiceConsole(
-            [
+            IReadOnlyList<string> profileDirectories = ProfileDirectoryLocator.Resolve(
                 Path.Combine(AppContext.BaseDirectory, "profiles"),
-                repositoryLocalProfiles,
-                applicationDataProfiles
-            ]);
+                Environment.CurrentDirectory,
+                applicationDataProfiles,
+                AppContext.BaseDirectory);
+            builder.Services.AddApplicationServiceConsole(profileDirectories);
             builder.Services.AddSingleton<IFolderPicker, FolderPicker>();
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainWindow>();

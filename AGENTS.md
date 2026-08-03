@@ -13,6 +13,19 @@ These rules apply to the entire repository.
 - Update `CHANGELOG.md` for user-visible changes, `TASKS.md` for milestone status, and an ADR for consequential reasoning. Use Git history for implementation detail rather than creating duplicate logs.
 - Use `apply_patch` for hand-edited files. Preserve unrelated user changes.
 
+## Git restrictions
+
+Agents must never modify Git state, repository history, remotes, or pull requests. The user performs all Git and GitHub changes manually.
+
+Allowed Git commands are limited to read-only inspection:
+
+- `git status`
+- `git log`
+- `git branch --list`
+- `git ls-files`
+
+Agents must not stage, commit, amend, reset, restore, rebase, merge, cherry-pick, switch branches, create branches or tags, fetch, pull, push, modify remotes, or create, update, merge, or close pull requests.
+
 ## Quality gate
 
 Run all of the following before completion:

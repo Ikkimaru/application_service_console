@@ -4,6 +4,16 @@ All notable user-visible changes are recorded here. This project follows [Keep a
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced full-width service rows with a responsive tile grid that shows four services per row at the standard window width.
+- Disabled process controls now explain that execution is not implemented yet when hovered.
+
+### Fixed
+
+- Enforced the dark palette across the main workspace, lists, and disabled buttons so text and controls remain readable.
+- Restored first-use project-folder selection with a generic Maven profile and launch-directory-independent local profile discovery.
+
 ## [0.1.0-alpha.1] - 2026-08-03
 
 ### Added

@@ -1,0 +1,43 @@
+{
+  "$schema": "schema/profile.schema.json",
+  "schemaVersion": 1,
+  "id": "local-maven",
+  "name": "Local Maven Project",
+  "description": "Discover Spring Boot services from a local Maven reactor.",
+  "projectRootSettingKey": "local-maven.projectRoot",
+  "discoveryProviders": [
+    {
+      "type": "mavenSpringBoot",
+      "options": {
+        "searchRoot": "."
+      }
+    }
+  ],
+  "metadataProviders": [
+    {
+      "type": "vscodeJavaLaunch",
+      "options": {
+        "path": ".vscode/launch.json"
+      }
+    }
+  ],
+  "visual": {
+    "theme": "dark",
+    "accentColor": "#5B8CFF",
+    "icon": "server",
+    "layout": "comfortable",
+    "logColors": {
+      "trace": "#7D879C",
+      "debug": "#7AA2F7",
+      "information": "#9ECE6A",
+      "warning": "#E0AF68",
+      "error": "#F7768E"
+    }
+  },
+  "execution": {
+    "newServicePolicy": "requireEnablement",
+    "springProfile": "local",
+    "maximumParallelism": 1
+  },
+  "serviceOverrides": {}
+}
