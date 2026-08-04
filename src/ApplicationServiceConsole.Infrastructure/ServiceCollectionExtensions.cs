@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IPortResolver, SpringBootPortResolver>();
         services.AddSingleton<IProfileWorkspace, ProfileWorkspace>();
         services.AddSingleton<IProjectChangeMonitor, ProjectChangeMonitor>();
+        services.AddSingleton<IServiceExecutor, LocalProcessServiceExecutor>();
         return services;
     }
 }

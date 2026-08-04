@@ -48,7 +48,14 @@ public partial class App : System.Windows.Application
         if (_host is not null)
         {
             await _host.StopAsync(TimeSpan.FromSeconds(3));
-            _host.Dispose();
+            if (_host is IAsyncDisposable asyncDisposable)
+            {
+                await asyncDisposable.DisposeAsync();
+            }
+            else
+            {
+                _host.Dispose();
+            }
         }
 
         base.OnExit(e);

@@ -9,12 +9,14 @@
 - [x] Detect Spring Boot ports and occupied-port conditions.
 - [x] Build the dark WPF discovery and diagnostics shell.
 - [x] Present discovered services in a compact responsive tile grid.
+- [x] Implement local command preflight and single-service process execution.
+- [x] Add Start, Stop, and Restart controls with bounded live stdout/stderr display.
+- [x] Stop owned process trees on request and application shutdown.
 - [x] Add synthetic discovery, validation, port, UI, and architecture tests.
 - [x] Add CI, dependency automation, changelog, goals, ADRs, security, and agent guidance.
 
 ## Next
 
-- [ ] Implement local command preflight and process execution.
 - [ ] Implement dependency-aware bulk start and reverse shutdown.
 - [ ] Confirm temporary port overrides before execution.
 - [ ] Capture stdout/stderr through bounded asynchronous channels.

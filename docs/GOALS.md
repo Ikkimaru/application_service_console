@@ -12,9 +12,10 @@ Provide one dependable desktop console for discovering, configuring, running, an
 - High-volume logs remain responsive, searchable, exportable, and bounded by retention policy.
 - Invalid or ambiguous configuration is explained before destructive or unreliable actions occur.
 
-## Non-goals for the scaffold
+## Deferred capabilities
 
-- Starting or stopping processes
-- Capturing or persisting managed-service logs
+- Persisting and searching managed-service logs
+- Dependency-aware bulk lifecycle operations
+- Graceful protocol-specific shutdown and orphan recovery
 - Docker, WSL, or installed Windows-service execution
 - Installers, automatic updates, or remote service management

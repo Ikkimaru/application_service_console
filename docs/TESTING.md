@@ -11,4 +11,4 @@ dotnet test ApplicationServiceConsole.slnx --no-build --configuration Release --
 
 Discovery tests must create temporary Maven reactors. They must cover module addition/removal, nested reactors, malformed POMs, libraries, ambiguous entry points, stale metadata, and enablement defaults without referencing an external project or asserting a service count.
 
-Port tests bind ephemeral loopback listeners. Never assume a developer port is free. UI logic should be tested through view models; full UI automation is deferred until lifecycle controls are implemented.
+Port tests bind ephemeral loopback listeners. Never assume a developer port is free. Local execution tests use short-lived synthetic Windows commands, verify process-tree stopping and output redaction, and must never launch an external project service. UI logic should be tested through view models; full UI automation is deferred until the lifecycle interface stabilizes.

@@ -132,6 +132,31 @@ public sealed record PortResolution(int? Port, string Source, bool IsOccupied);
 
 public sealed record ExecutionCapability(bool IsAvailable, string Reason);
 
+public enum ServiceExecutionStatus
+{
+    Stopped,
+    Starting,
+    Running,
+    Stopping,
+    Exited,
+    Failed
+}
+
+public sealed record ServiceExecutionState(
+    string ServiceId,
+    ServiceExecutionStatus Status,
+    int? ProcessId = null,
+    int? ExitCode = null,
+    string? Message = null);
+
+public sealed record ExecutionPreflightResult(bool CanStart, string Message);
+
+public sealed record ServiceOutputLine(
+    DateTimeOffset Timestamp,
+    string ServiceId,
+    string Stream,
+    string Message);
+
 public sealed record LogEvent(
     DateTimeOffset Timestamp,
     string ProfileId,

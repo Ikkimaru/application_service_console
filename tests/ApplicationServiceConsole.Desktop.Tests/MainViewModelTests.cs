@@ -19,7 +19,7 @@ public sealed class MainViewModelTests
         FakeWorkspace workspace = new(profile);
         FakeFolderPicker folderPicker = new(Path.GetTempPath());
         using FakeChangeMonitor monitor = new();
-        using MainViewModel viewModel = new(new FakeProfileCatalog(profile), workspace, folderPicker, monitor);
+        using MainViewModel viewModel = new(new FakeProfileCatalog(profile), workspace, folderPicker, monitor, new FakeExecutor());
 
         await viewModel.InitializeAsync();
 
@@ -80,5 +80,38 @@ public sealed class MainViewModelTests
         public void Dispose()
         {
         }
+    }
+
+    private sealed class FakeExecutor : IServiceExecutor
+    {
+        public ExecutionCapability Capability { get; } = new(true, "Available for testing.");
+
+        public event Action<ServiceExecutionState>? StateChanged
+        {
+            add { }
+            remove { }
+        }
+
+        public event Action<ServiceOutputLine>? OutputReceived
+        {
+            add { }
+            remove { }
+        }
+
+        public ServiceExecutionState GetState(string serviceId) => new(serviceId, ServiceExecutionStatus.Stopped);
+
+        public Task<ExecutionPreflightResult> PreflightAsync(
+            ResolvedService service,
+            string projectRoot,
+            CancellationToken cancellationToken = default) =>
+            Task.FromResult(new ExecutionPreflightResult(true, "Ready."));
+
+        public Task StartAsync(
+            ResolvedService service,
+            string projectRoot,
+            int? portOverride,
+            CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+        public Task StopAsync(string serviceId, CancellationToken cancellationToken = default) => Task.CompletedTask;
     }
 }

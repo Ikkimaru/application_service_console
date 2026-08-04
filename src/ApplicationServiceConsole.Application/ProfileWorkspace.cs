@@ -68,6 +68,7 @@ public sealed class ProfileWorkspace(
             bool hasLocalEnablement = localSettings.ServiceEnablement.ContainsKey(service.Id);
             bool enabled = profileOverride?.Enabled ?? (hasLocalEnablement ? localEnabled : enrichment?.ExplicitlyEnabled ?? false);
             bool ambiguous = service.ApplicationEntryPoints.Count != 1;
+            CommandDefinition? command = ResolveCommand(profileOverride?.Command, service.SuggestedCommand, enrichment);
 
             ResolvedService item = new()
             {
@@ -80,7 +81,7 @@ public sealed class ProfileWorkspace(
                 HasStartupMetadata = profileOverride?.Priority is not null || enrichment?.Priority is not null,
                 Priority = profileOverride?.Priority ?? enrichment?.Priority ?? int.MaxValue,
                 DependsOn = profileOverride?.DependsOn ?? [],
-                Command = profileOverride?.Command ?? service.SuggestedCommand,
+                Command = command,
                 Availability = ambiguous ? ServiceAvailability.Ambiguous : enabled ? ServiceAvailability.Discovered : ServiceAvailability.Disabled
             };
 
@@ -152,4 +153,24 @@ public sealed class ProfileWorkspace(
     private static string Humanize(string value) =>
         string.Join(' ', value.Split(['-', '_'], StringSplitOptions.RemoveEmptyEntries)
             .Select(word => char.ToUpperInvariant(word[0]) + word[1..]));
+
+    private static CommandDefinition? ResolveCommand(
+        CommandDefinition? executionOverride,
+        CommandDefinition? suggestedCommand,
+        ServiceMetadata? metadata)
+    {
+        if (executionOverride is not null || suggestedCommand is null)
+        {
+            return executionOverride ?? suggestedCommand;
+        }
+
+        IReadOnlyList<string> arguments = string.IsNullOrWhiteSpace(metadata?.JvmArguments)
+            ? suggestedCommand.Arguments
+            : suggestedCommand.Arguments.Concat([$"-Dspring-boot.run.jvmArguments={metadata.JvmArguments}"]).ToArray();
+        return suggestedCommand with
+        {
+            Arguments = arguments,
+            EnvironmentFile = metadata?.EnvironmentFile ?? suggestedCommand.EnvironmentFile
+        };
+    }
 }

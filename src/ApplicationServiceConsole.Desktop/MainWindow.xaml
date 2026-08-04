@@ -4,6 +4,7 @@
         Title="Application Service Console" Width="1440" Height="900" MinWidth="1080" MinHeight="680"
         Background="{StaticResource WindowBrush}"
         Foreground="{StaticResource TextBrush}"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource WindowBrush}">
         <Grid.ColumnDefinitions>
@@ -38,8 +39,8 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel Grid.Row="3">
-                    <TextBlock Foreground="{StaticResource MutedTextBrush}" FontSize="11" Text="SCAFFOLD • 0.1.0-alpha.1" />
-                    <TextBlock Margin="0,5,0,0" Foreground="{StaticResource MutedTextBrush}" Text="Process control is planned" />
+                    <TextBlock Foreground="{StaticResource MutedTextBrush}" FontSize="11" Text="LOCAL EXECUTION • ALPHA" />
+                    <TextBlock Margin="0,5,0,0" Foreground="{StaticResource MutedTextBrush}" Text="Single-service control available" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -73,7 +74,7 @@
             <Grid Grid.Row="2" Margin="0,0,0,12">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                 <TextBlock FontSize="16" FontWeight="SemiBold" Text="Discovered services" />
-                <Button Grid.Column="1" IsEnabled="False" Content="Start All" ToolTip="Process execution is not implemented yet." />
+                <Button Grid.Column="1" IsEnabled="False" Content="Start All" ToolTip="Dependency-aware bulk execution is planned for the next milestone." />
             </Grid>
             <ScrollViewer Grid.Row="3"
                           HorizontalScrollBarVisibility="Disabled"
@@ -81,13 +82,13 @@
                 <ItemsControl ItemsSource="{Binding Services}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel ItemWidth="260" ItemHeight="172" />
+                            <WrapPanel ItemWidth="272" ItemHeight="182" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Width="252"
-                                    Height="164"
+                            <Border Width="264"
+                                    Height="174"
                                     Margin="4"
                                     Padding="13"
                                     Background="{StaticResource CardBrush}"
@@ -140,14 +141,24 @@
                                             <TextBlock Margin="0,3,0,0" Text="{Binding PortText}" />
                                         </StackPanel>
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
-                                            <Button Margin="0,0,6,0"
-                                                    Padding="10,7"
+                                            <Button Margin="0,0,4,0"
+                                                    Padding="8,7"
                                                     Command="{Binding ToggleEnabledCommand}"
                                                     Content="{Binding EnableActionText}" />
-                                            <Button Padding="10,7"
-                                                    IsEnabled="False"
+                                            <Button Margin="0,0,4,0"
+                                                    Padding="8,7"
+                                                    Command="{Binding StartCommand}"
                                                     Content="Start"
-                                                    ToolTip="Process execution is not implemented yet." />
+                                                    ToolTip="{Binding StartToolTip}" />
+                                            <Button Margin="0,0,4,0"
+                                                    Padding="8,7"
+                                                    Command="{Binding StopCommand}"
+                                                    Content="Stop"
+                                                    ToolTip="Stop this service and its child process tree." />
+                                            <Button Padding="8,7"
+                                                    Command="{Binding RestartCommand}"
+                                                    Content="Restart"
+                                                    ToolTip="Stop and start this service again." />
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
@@ -160,13 +171,28 @@
                 <Grid>
                     <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
                     <Grid Margin="14,11">
-                        <TextBlock FontWeight="SemiBold" Text="Log workspace" />
-                        <Button HorizontalAlignment="Right" IsEnabled="False" Content="Search history" ToolTip="Available in milestone 3" />
+                        <StackPanel>
+                            <TextBlock FontWeight="SemiBold" Text="Live process output" />
+                            <TextBlock Margin="0,3,0,0" FontSize="10" Foreground="{StaticResource MutedTextBrush}" Text="{Binding LiveOutputStatus}" />
+                        </StackPanel>
+                        <Button HorizontalAlignment="Right" IsEnabled="False" Content="Search history" ToolTip="Persistent indexed log search is planned for a later milestone." />
                     </Grid>
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock HorizontalAlignment="Center" FontSize="14" Text="No active log session" />
-                        <TextBlock Margin="0,6,0,0" Foreground="{StaticResource MutedTextBrush}" Text="Indexed log capture arrives with the execution engine." />
-                    </StackPanel>
+                    <ListBox Grid.Row="1"
+                             Margin="10,0,10,10"
+                             ItemsSource="{Binding LiveOutput}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             VirtualizingPanel.IsVirtualizing="True">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="4,2"
+                                           FontFamily="Cascadia Mono, Consolas"
+                                           FontSize="11"
+                                           Foreground="{StaticResource MutedTextBrush}"
+                                           Text="{Binding DisplayText}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </Border>
         </Grid>

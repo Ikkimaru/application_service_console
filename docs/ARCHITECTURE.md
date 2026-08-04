@@ -21,3 +21,14 @@ Dependencies point inward. Infrastructure implementations are selected by provid
 8. Present an immutable discovery snapshot.
 
 Filesystem watching is debounced. Cached snapshots improve responsiveness but never replace a fresh filesystem scan as the authority.
+
+## Local execution flow
+
+1. Require a discovered, unambiguous, explicitly enabled service with a resolved command.
+2. Resolve the executable, arguments, working directory, and optional environment file without invoking a shell.
+3. Reject paths outside the selected project root and commands whose executable cannot be found.
+4. Start one owned process tree and publish runtime-state changes.
+5. Drain stdout and stderr asynchronously into a bounded live UI view, redacting environment-file values.
+6. Stop the entire owned process tree on request or application shutdown.
+
+Bulk ordering, graceful protocol-specific shutdown, health checks, and durable indexed logs remain separate application milestones.

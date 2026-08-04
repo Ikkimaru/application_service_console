@@ -4,10 +4,16 @@ All notable user-visible changes are recorded here. This project follows [Keep a
 
 ## [Unreleased]
 
+### Added
+
+- Added preflighted local command execution for enabled services with Start, Stop, and Restart controls.
+- Added live stdout/stderr display, runtime service states, environment-value redaction, and owned process-tree shutdown.
+
 ### Changed
 
+- The main window now launches maximized on the active display.
 - Replaced full-width service rows with a responsive tile grid that shows four services per row at the standard window width.
-- Disabled process controls now explain that execution is not implemented yet when hovered.
+- Service tiles now expose lifecycle controls according to each service's enablement, discovery, and runtime state.
 
 ### Fixed
 
