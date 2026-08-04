@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IProfileWorkspace, ProfileWorkspace>();
         services.AddSingleton<IProjectChangeMonitor, ProjectChangeMonitor>();
         services.AddSingleton<IServiceExecutor, LocalProcessServiceExecutor>();
+        services.AddSingleton<IWindowLayoutSettingsStore, JsonWindowLayoutSettingsStore>();
         return services;
     }
 }

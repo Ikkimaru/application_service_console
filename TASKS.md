@@ -9,6 +9,7 @@
 - [x] Detect Spring Boot ports and occupied-port conditions.
 - [x] Build the dark WPF discovery and diagnostics shell.
 - [x] Present discovered services in a compact responsive tile grid.
+- [x] Add resizable sidebars with machine-local width persistence.
 - [x] Implement local command preflight and single-service process execution.
 - [x] Add Start, Stop, and Restart controls with bounded live stdout/stderr display.
 - [x] Stop owned process trees on request and application shutdown.

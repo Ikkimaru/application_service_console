@@ -8,6 +8,7 @@ All notable user-visible changes are recorded here. This project follows [Keep a
 
 - Added preflighted local command execution for enabled services with Start, Stop, and Restart controls.
 - Added live stdout/stderr display, runtime service states, environment-value redaction, and owned process-tree shutdown.
+- Added resizable profile and diagnostics sidebars that retain their widths between launches.
 
 ### Changed
 

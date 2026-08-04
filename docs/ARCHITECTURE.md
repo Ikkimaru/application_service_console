@@ -32,3 +32,7 @@ Filesystem watching is debounced. Cached snapshots improve responsiveness but ne
 6. Stop the entire owned process tree on request or application shutdown.
 
 Bulk ordering, graceful protocol-specific shutdown, health checks, and durable indexed logs remain separate application milestones.
+
+## Desktop layout persistence
+
+Resizable presentation settings are machine-local application preferences, separate from portable project profiles and per-profile project settings. Sidebar widths are stored under `%LOCALAPPDATA%\ApplicationServiceConsole`, validated against UI constraints when loaded, and never affect discovery or execution behavior.

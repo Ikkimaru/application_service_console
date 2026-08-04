@@ -8,9 +8,11 @@
         WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource WindowBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="245" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="350" />
+            <ColumnDefinition x:Name="LeftSidebarColumn" Width="245" MinWidth="180" MaxWidth="520" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" MinWidth="480" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition x:Name="RightSidebarColumn" Width="350" MinWidth="260" MaxWidth="720" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
@@ -45,7 +47,18 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1" Margin="28,22">
+        <GridSplitter Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource BorderBrush}"
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      ShowsPreview="True"
+                      ToolTip="Resize the profile sidebar"
+                      DragCompleted="OnSidebarDragCompleted" />
+
+        <Grid Grid.Column="2" Margin="28,22">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -197,7 +210,18 @@
             </Border>
         </Grid>
 
-        <Border Grid.Column="2" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0">
+        <GridSplitter Grid.Column="3"
+                      Width="5"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource BorderBrush}"
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      ShowsPreview="True"
+                      ToolTip="Resize the diagnostics sidebar"
+                      DragCompleted="OnSidebarDragCompleted" />
+
+        <Border Grid.Column="4" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0">
             <Grid Margin="22">
                 <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
                 <TextBlock FontSize="17" FontWeight="SemiBold" Text="Validation diagnostics" />
@@ -217,7 +241,7 @@
                 </ListBox>
             </Grid>
         </Border>
-        <Border Grid.ColumnSpan="3" Background="#CC0B1020" Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Border Grid.ColumnSpan="5" Background="#CC0B1020" Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressBar Width="240" Height="4" IsIndeterminate="True" />
                 <TextBlock Margin="0,12,0,0" HorizontalAlignment="Center" Text="Discovering services…" />
